@@ -1,0 +1,795 @@
+EMBEDDING_CONFIGS = [
+    (
+        "B0_bge_small",
+        make_cfg(
+            embed_model="BAAI/bge-small-en",
+            chunk_size=512,
+            chunk_overlap=100,
+            chunk_strategy="fixed",
+            top_k_retrieve=25,
+            top_k_final=5,
+            use_graph=False,
+            use_rerank=False,
+        )
+    ),
+
+    (
+        "B1_bge_base",
+        make_cfg(
+            embed_model="BAAI/bge-base-en-v1.5",
+            chunk_size=512,
+            chunk_overlap=100,
+            chunk_strategy="fixed",
+            top_k_retrieve=25,
+            top_k_final=5,
+            use_graph=False,
+            use_rerank=False,
+        )
+    ),
+
+    (
+        "B2_e5_base",
+        make_cfg(
+            embed_model="intfloat/e5-base-v2",
+            chunk_size=512,
+            chunk_overlap=100,
+            chunk_strategy="fixed",
+            top_k_retrieve=25,
+            top_k_final=5,
+            use_graph=False,
+            use_rerank=False,
+        )
+    ),
+]
+
+EXTRA_EMBEDDING_CONFIGS = [
+    (
+        "B3_e5_large",
+        make_cfg(
+            embed_model="intfloat/e5-large-v2",
+            chunk_size=512,
+            chunk_overlap=100,
+            chunk_strategy="fixed",
+            top_k_retrieve=25,
+            top_k_final=5,
+            use_graph=False,
+            use_rerank=False,
+        )
+    ),
+
+    (
+        "B4_bge_large",
+        make_cfg(
+            embed_model="BAAI/bge-large-en-v1.5",
+            chunk_size=512,
+            chunk_overlap=100,
+            chunk_strategy="fixed",
+            top_k_retrieve=25,
+            top_k_final=5,
+            use_graph=False,
+            use_rerank=False,
+        )
+    ),
+]
+
+CHUNK_CONFIGS = [
+    (
+        "C0_fixed_256",
+        make_cfg(
+            embed_model=BEST_EMBED,
+            chunk_size=256,
+            chunk_overlap=50,
+            chunk_strategy="fixed",
+            top_k_retrieve=25,
+            top_k_final=5,
+            use_graph=False,
+            use_rerank=False,
+        )
+    ),
+
+    (
+        "C1_fixed_512",
+        make_cfg(
+            embed_model=BEST_EMBED,
+            chunk_size=512,
+            chunk_overlap=100,
+            chunk_strategy="fixed",
+            top_k_retrieve=25,
+            top_k_final=5,
+            use_graph=False,
+            use_rerank=False,
+        )
+    ),
+
+    (
+        "C2_fixed_800",
+        make_cfg(
+            embed_model=BEST_EMBED,
+            chunk_size=800,
+            chunk_overlap=150,
+            chunk_strategy="fixed",
+            top_k_retrieve=25,
+            top_k_final=5,
+            use_graph=False,
+            use_rerank=False,
+        )
+    ),
+
+    (
+        "C3_fixed_1024",
+        make_cfg(
+            embed_model=BEST_EMBED,
+            chunk_size=1024,
+            chunk_overlap=200,
+            chunk_strategy="fixed",
+            top_k_retrieve=25,
+            top_k_final=5,
+            use_graph=False,
+            use_rerank=False,
+        )
+    ),
+
+    (
+        "C4_paragraph_512",
+        make_cfg(
+            embed_model=BEST_EMBED,
+            chunk_size=512,
+            chunk_overlap=100,
+            chunk_strategy="paragraph",
+            top_k_retrieve=25,
+            top_k_final=5,
+            use_graph=False,
+            use_rerank=False,
+        )
+    ),
+
+    (
+        "C5_paragraph_800",
+        make_cfg(
+            embed_model=BEST_EMBED,
+            chunk_size=800,
+            chunk_overlap=150,
+            chunk_strategy="paragraph",
+            top_k_retrieve=25,
+            top_k_final=5,
+            use_graph=False,
+            use_rerank=False,
+        )
+    ),
+
+    (
+        "C6_paragraph_1024",
+        make_cfg(
+            embed_model=BEST_EMBED,
+            chunk_size=1024,
+            chunk_overlap=200,
+            chunk_strategy="paragraph",
+            top_k_retrieve=25,
+            top_k_final=5,
+            use_graph=False,
+            use_rerank=False,
+        )
+    ),
+]
+
+RETRIEVE_K_CONFIGS = [
+    (
+        "D0_retrieve_k_10",
+        make_cfg(
+            embed_model=BEST_EMBED,
+            chunk_size=BEST_CHUNK_SIZE,
+            chunk_overlap=BEST_OVERLAP,
+            chunk_strategy=BEST_STRATEGY,
+            top_k_retrieve=10,
+            top_k_final=5,
+            use_graph=False,
+            use_rerank=False,
+        )
+    ),
+
+    (
+        "D1_retrieve_k_25",
+        make_cfg(
+            embed_model=BEST_EMBED,
+            chunk_size=BEST_CHUNK_SIZE,
+            chunk_overlap=BEST_OVERLAP,
+            chunk_strategy=BEST_STRATEGY,
+            top_k_retrieve=25,
+            top_k_final=5,
+            use_graph=False,
+            use_rerank=False,
+        )
+    ),
+
+    (
+        "D2_retrieve_k_50",
+        make_cfg(
+            embed_model=BEST_EMBED,
+            chunk_size=BEST_CHUNK_SIZE,
+            chunk_overlap=BEST_OVERLAP,
+            chunk_strategy=BEST_STRATEGY,
+            top_k_retrieve=50,
+            top_k_final=5,
+            use_graph=False,
+            use_rerank=False,
+        )
+    ),
+]
+
+FINAL_K_CONFIGS = [
+    (
+        "E0_final_k_3",
+        make_cfg(
+            embed_model=BEST_EMBED,
+            chunk_size=BEST_CHUNK_SIZE,
+            chunk_overlap=BEST_OVERLAP,
+            chunk_strategy=BEST_STRATEGY,
+            top_k_retrieve=25,
+            top_k_final=3,
+            use_graph=False,
+            use_rerank=False,
+        )
+    ),
+
+    (
+        "E1_final_k_5",
+        make_cfg(
+            embed_model=BEST_EMBED,
+            chunk_size=BEST_CHUNK_SIZE,
+            chunk_overlap=BEST_OVERLAP,
+            chunk_strategy=BEST_STRATEGY,
+            top_k_retrieve=25,
+            top_k_final=5,
+            use_graph=False,
+            use_rerank=False,
+        )
+    ),
+
+    (
+        "E2_final_k_8",
+        make_cfg(
+            embed_model=BEST_EMBED,
+            chunk_size=BEST_CHUNK_SIZE,
+            chunk_overlap=BEST_OVERLAP,
+            chunk_strategy=BEST_STRATEGY,
+            top_k_retrieve=25,
+            top_k_final=8,
+            use_graph=False,
+            use_rerank=False,
+        )
+    ),
+
+    (
+        "E3_final_k_12",
+        make_cfg(
+            embed_model=BEST_EMBED,
+            chunk_size=BEST_CHUNK_SIZE,
+            chunk_overlap=BEST_OVERLAP,
+            chunk_strategy=BEST_STRATEGY,
+            top_k_retrieve=BEST_TOP_K_RETRIEVE,
+            top_k_final=12,
+            use_graph=False,
+            use_rerank=False,
+        )
+    ),
+
+    (
+        "E4_final_k_18",
+        make_cfg(
+            embed_model=BEST_EMBED,
+            chunk_size=BEST_CHUNK_SIZE,
+            chunk_overlap=BEST_OVERLAP,
+            chunk_strategy=BEST_STRATEGY,
+            top_k_retrieve=BEST_TOP_K_RETRIEVE,
+            top_k_final=18,
+            use_graph=False,
+            use_rerank=False,
+        )
+    ),
+]
+
+RETRIEVAL_METHOD_CONFIGS = [
+
+    (
+        "R0_dense_only",
+        make_cfg(
+            embed_model=BEST_EMBED,
+            chunk_size=BEST_CHUNK_SIZE,
+            chunk_overlap=BEST_OVERLAP,
+            chunk_strategy=BEST_STRATEGY,
+
+            top_k_retrieve=BEST_TOP_K_RETRIEVE,
+            top_k_final=BEST_TOP_K_FINAL,
+
+            retrieval_mode="dense",
+            bm25_k=BEST_TOP_K_RETRIEVE,
+            hybrid_mode="rrf",
+
+            use_graph=False,
+            graph_hops=0,
+            edge_min_shared_keywords=999,
+            use_chunk_edges=False,
+            use_sequential_edges=False,
+            max_graph_seed_chunks=0,
+            max_edge_neighbors_per_chunk=0,
+
+            use_rerank=False,
+        )
+    ),
+
+    (
+        "R1_bm25_only_k25",
+        make_cfg(
+            embed_model=BEST_EMBED,
+            chunk_size=BEST_CHUNK_SIZE,
+            chunk_overlap=BEST_OVERLAP,
+            chunk_strategy=BEST_STRATEGY,
+
+            top_k_retrieve=BEST_TOP_K_RETRIEVE,
+            top_k_final=BEST_TOP_K_FINAL,
+
+            retrieval_mode="bm25",
+            bm25_k=25,
+            hybrid_mode="rrf",
+
+            use_graph=False,
+            graph_hops=0,
+            edge_min_shared_keywords=999,
+            use_chunk_edges=False,
+            use_sequential_edges=False,
+            max_graph_seed_chunks=0,
+            max_edge_neighbors_per_chunk=0,
+
+            use_rerank=False,
+        )
+    ),
+
+    (
+        "R2_bm25_only_k50",
+        make_cfg(
+            embed_model=BEST_EMBED,
+            chunk_size=BEST_CHUNK_SIZE,
+            chunk_overlap=BEST_OVERLAP,
+            chunk_strategy=BEST_STRATEGY,
+
+            top_k_retrieve=BEST_TOP_K_RETRIEVE,
+            top_k_final=BEST_TOP_K_FINAL,
+
+            retrieval_mode="bm25",
+            bm25_k=50,
+            hybrid_mode="rrf",
+
+            use_graph=False,
+            graph_hops=0,
+            edge_min_shared_keywords=999,
+            use_chunk_edges=False,
+            use_sequential_edges=False,
+            max_graph_seed_chunks=0,
+            max_edge_neighbors_per_chunk=0,
+
+            use_rerank=False,
+        )
+    ),
+
+    (
+        "R3_hybrid_concat_dense25_bm25_25",
+        make_cfg(
+            embed_model=BEST_EMBED,
+            chunk_size=BEST_CHUNK_SIZE,
+            chunk_overlap=BEST_OVERLAP,
+            chunk_strategy=BEST_STRATEGY,
+
+            top_k_retrieve=BEST_TOP_K_RETRIEVE,
+            top_k_final=BEST_TOP_K_FINAL,
+
+            retrieval_mode="hybrid",
+            bm25_k=25,
+            hybrid_mode="concat",
+
+            use_graph=False,
+            graph_hops=0,
+            edge_min_shared_keywords=999,
+            use_chunk_edges=False,
+            use_sequential_edges=False,
+            max_graph_seed_chunks=0,
+            max_edge_neighbors_per_chunk=0,
+
+            use_rerank=False,
+        )
+    ),
+
+    (
+        "R4_hybrid_rrf_dense25_bm25_25",
+        make_cfg(
+            embed_model=BEST_EMBED,
+            chunk_size=BEST_CHUNK_SIZE,
+            chunk_overlap=BEST_OVERLAP,
+            chunk_strategy=BEST_STRATEGY,
+
+            top_k_retrieve=BEST_TOP_K_RETRIEVE,
+            top_k_final=BEST_TOP_K_FINAL,
+
+            retrieval_mode="hybrid",
+            bm25_k=25,
+            hybrid_mode="rrf",
+            rrf_k=60,
+
+            use_graph=False,
+            graph_hops=0,
+            edge_min_shared_keywords=999,
+            use_chunk_edges=False,
+            use_sequential_edges=False,
+            max_graph_seed_chunks=0,
+            max_edge_neighbors_per_chunk=0,
+
+            use_rerank=False,
+        )
+    ),
+
+    (
+        "R5_hybrid_rrf_dense25_bm25_50",
+        make_cfg(
+            embed_model=BEST_EMBED,
+            chunk_size=BEST_CHUNK_SIZE,
+            chunk_overlap=BEST_OVERLAP,
+            chunk_strategy=BEST_STRATEGY,
+
+            top_k_retrieve=BEST_TOP_K_RETRIEVE,
+            top_k_final=BEST_TOP_K_FINAL,
+
+            retrieval_mode="hybrid",
+            bm25_k=50,
+            hybrid_mode="rrf",
+            rrf_k=60,
+
+            use_graph=False,
+            graph_hops=0,
+            edge_min_shared_keywords=999,
+            use_chunk_edges=False,
+            use_sequential_edges=False,
+            max_graph_seed_chunks=0,
+            max_edge_neighbors_per_chunk=0,
+
+            use_rerank=False,
+        )
+    ),
+]
+
+GRAPH_CONFIGS = [
+    (
+        "G1_graph_sequential_only_hop1",
+        make_cfg(
+            embed_model=BEST_EMBED,
+            chunk_size=BEST_CHUNK_SIZE,
+            chunk_overlap=BEST_OVERLAP,
+            chunk_strategy=BEST_STRATEGY,
+
+            top_k_retrieve=BEST_TOP_K_RETRIEVE,
+            top_k_final=BEST_TOP_K_FINAL,
+
+            retrieval_mode=BEST_RETRIEVAL_MODE,
+            bm25_k=BEST_BM25_K,
+            hybrid_mode=BEST_HYBRID_MODE,
+            rrf_k=BEST_RRF_K,
+
+            use_graph=True,
+            graph_edge_mode="keyword",
+            graph_hops=1,
+            edge_min_shared_keywords=999,
+
+            use_chunk_edges=False,
+            use_sequential_edges=True,
+
+            max_graph_seed_chunks=5,
+            max_edge_neighbors_per_chunk=3,
+
+            use_rerank=False,
+            use_cross_encoder_rerank=False,
+        )
+    ),
+
+    (
+        "G0_best_retriever_no_graph",
+        make_cfg(
+            embed_model=BEST_EMBED,
+            chunk_size=BEST_CHUNK_SIZE,
+            chunk_overlap=BEST_OVERLAP,
+            chunk_strategy=BEST_STRATEGY,
+
+            top_k_retrieve=BEST_TOP_K_RETRIEVE,
+            top_k_final=BEST_TOP_K_FINAL,
+
+            retrieval_mode=BEST_RETRIEVAL_MODE,
+            bm25_k=BEST_BM25_K,
+            hybrid_mode=BEST_HYBRID_MODE,
+            rrf_k=BEST_RRF_K,
+
+            use_graph=False,
+            graph_hops=0,
+            use_chunk_edges=False,
+            use_sequential_edges=False,
+            max_graph_seed_chunks=0,
+            max_edge_neighbors_per_chunk=0,
+
+            use_rerank=False,
+            use_cross_encoder_rerank=False,
+        )
+    ),
+
+    (
+        "G2_graph_domain_concept_only_min2_hop1",
+        make_cfg(
+            embed_model=BEST_EMBED,
+            chunk_size=BEST_CHUNK_SIZE,
+            chunk_overlap=BEST_OVERLAP,
+            chunk_strategy=BEST_STRATEGY,
+
+            top_k_retrieve=BEST_TOP_K_RETRIEVE,
+            top_k_final=BEST_TOP_K_FINAL,
+
+            retrieval_mode=BEST_RETRIEVAL_MODE,
+            bm25_k=BEST_BM25_K,
+            hybrid_mode=BEST_HYBRID_MODE,
+            rrf_k=BEST_RRF_K,
+
+            use_graph=True,
+            graph_edge_mode="keyword",
+            graph_hops=1,
+            edge_min_shared_keywords=2,
+
+            use_chunk_edges=True,
+            use_sequential_edges=False,
+
+            max_graph_seed_chunks=5,
+            max_edge_neighbors_per_chunk=5,
+
+            use_rerank=False,
+            use_cross_encoder_rerank=False,
+        )
+    ),
+
+    (
+        "G3_graph_domain_concept_plus_sequential_min2_hop1",
+        make_cfg(
+            embed_model=BEST_EMBED,
+            chunk_size=BEST_CHUNK_SIZE,
+            chunk_overlap=BEST_OVERLAP,
+            chunk_strategy=BEST_STRATEGY,
+
+            top_k_retrieve=BEST_TOP_K_RETRIEVE,
+            top_k_final=BEST_TOP_K_FINAL,
+
+            retrieval_mode=BEST_RETRIEVAL_MODE,
+            bm25_k=BEST_BM25_K,
+            hybrid_mode=BEST_HYBRID_MODE,
+            rrf_k=BEST_RRF_K,
+
+            use_graph=True,
+            graph_edge_mode="keyword",
+            graph_hops=1,
+            edge_min_shared_keywords=2,
+
+            use_chunk_edges=True,
+            use_sequential_edges=True,
+
+            max_graph_seed_chunks=5,
+            max_edge_neighbors_per_chunk=5,
+
+            use_rerank=False,
+            use_cross_encoder_rerank=False,
+        )
+    ),
+
+    (
+        "G4_graph_domain_concept_plus_sequential_min2_hop2",
+        make_cfg(
+            embed_model=BEST_EMBED,
+            chunk_size=BEST_CHUNK_SIZE,
+            chunk_overlap=BEST_OVERLAP,
+            chunk_strategy=BEST_STRATEGY,
+
+            top_k_retrieve=BEST_TOP_K_RETRIEVE,
+            top_k_final=BEST_TOP_K_FINAL,
+
+            retrieval_mode=BEST_RETRIEVAL_MODE,
+            bm25_k=BEST_BM25_K,
+            hybrid_mode=BEST_HYBRID_MODE,
+            rrf_k=BEST_RRF_K,
+
+            use_graph=True,
+            graph_edge_mode="keyword",
+            graph_hops=2,
+            edge_min_shared_keywords=2,
+
+            use_chunk_edges=True,
+            use_sequential_edges=True,
+
+            max_graph_seed_chunks=5,
+            max_edge_neighbors_per_chunk=3,
+
+            use_rerank=False,
+            use_cross_encoder_rerank=False,
+        )
+    ),
+
+    (
+        "G5_graph_hybrid_edges_similarity_hop1_optional",
+        make_cfg(
+            embed_model=BEST_EMBED,
+            chunk_size=BEST_CHUNK_SIZE,
+            chunk_overlap=BEST_OVERLAP,
+            chunk_strategy=BEST_STRATEGY,
+
+            top_k_retrieve=BEST_TOP_K_RETRIEVE,
+            top_k_final=BEST_TOP_K_FINAL,
+
+            retrieval_mode=BEST_RETRIEVAL_MODE,
+            bm25_k=BEST_BM25_K,
+            hybrid_mode=BEST_HYBRID_MODE,
+            rrf_k=BEST_RRF_K,
+
+            use_graph=True,
+            graph_edge_mode="hybrid",
+            edge_similarity_threshold=0.78,
+            max_similarity_neighbors=3,
+            max_similarity_chunks=5000,
+
+            graph_hops=1,
+            edge_min_shared_keywords=2,
+
+            use_chunk_edges=True,
+            use_sequential_edges=True,
+
+            max_graph_seed_chunks=5,
+            max_edge_neighbors_per_chunk=3,
+
+            use_rerank=False,
+            use_cross_encoder_rerank=False,
+        )
+    ),
+]
+
+RERANK_NO_GRAPH_CONFIGS = [
+    (
+        "I1_best_retriever_no_graph_lexical_rerank",
+        make_cfg(
+            embed_model=BEST_EMBED,
+            chunk_size=BEST_CHUNK_SIZE,
+            chunk_overlap=BEST_OVERLAP,
+            chunk_strategy=BEST_STRATEGY,
+
+            top_k_retrieve=BEST_TOP_K_RETRIEVE,
+            top_k_final=BEST_TOP_K_FINAL,
+
+            retrieval_mode=BEST_RETRIEVAL_MODE,
+            bm25_k=BEST_BM25_K,
+            hybrid_mode=BEST_HYBRID_MODE,
+            rrf_k=BEST_RRF_K,
+
+            use_graph=False,
+
+            use_rerank=True,
+            use_cross_encoder_rerank=False,
+        )
+    ),
+
+    (
+        "I2_best_retriever_no_graph_cross_encoder_rerank",
+        make_cfg(
+            embed_model=BEST_EMBED,
+            chunk_size=BEST_CHUNK_SIZE,
+            chunk_overlap=BEST_OVERLAP,
+            chunk_strategy=BEST_STRATEGY,
+
+            top_k_retrieve=BEST_TOP_K_RETRIEVE,
+            top_k_final=BEST_TOP_K_FINAL,
+
+            retrieval_mode=BEST_RETRIEVAL_MODE,
+            bm25_k=BEST_BM25_K,
+            hybrid_mode=BEST_HYBRID_MODE,
+            rrf_k=BEST_RRF_K,
+
+            use_graph=False,
+
+            use_rerank=False,
+            use_cross_encoder_rerank=True,
+            cross_encoder_model="BAAI/bge-reranker-base",
+            rerank_top_n=50,
+        )
+    ),
+]
+
+RERANK_CONFIGS = [
+
+    (
+        "I0_best_graph_no_rerank",
+        make_cfg(
+            embed_model=BEST_EMBED,
+            chunk_size=BEST_CHUNK_SIZE,
+            chunk_overlap=BEST_OVERLAP,
+            chunk_strategy=BEST_STRATEGY,
+
+            top_k_retrieve=BEST_TOP_K_RETRIEVE,
+            top_k_final=BEST_TOP_K_FINAL,
+
+            retrieval_mode=BEST_RETRIEVAL_MODE,
+            bm25_k=BEST_BM25_K,
+            hybrid_mode=BEST_HYBRID_MODE,
+            rrf_k=BEST_RRF_K,
+
+            use_graph=True,
+            graph_edge_mode="keyword",
+            graph_hops=1,
+            edge_min_shared_keywords=2,
+            use_chunk_edges=True,
+            use_sequential_edges=True,
+            max_graph_seed_chunks=5,
+            max_edge_neighbors_per_chunk=5,
+
+            use_rerank=False,
+            use_cross_encoder_rerank=False,
+        )
+    ),
+
+    (
+        "I1_best_graph_lexical_rerank",
+        make_cfg(
+            embed_model=BEST_EMBED,
+            chunk_size=BEST_CHUNK_SIZE,
+            chunk_overlap=BEST_OVERLAP,
+            chunk_strategy=BEST_STRATEGY,
+
+            top_k_retrieve=BEST_TOP_K_RETRIEVE,
+            top_k_final=BEST_TOP_K_FINAL,
+
+            retrieval_mode=BEST_RETRIEVAL_MODE,
+            bm25_k=BEST_BM25_K,
+            hybrid_mode=BEST_HYBRID_MODE,
+            rrf_k=BEST_RRF_K,
+
+            use_graph=True,
+            graph_edge_mode="keyword",
+            graph_hops=1,
+            edge_min_shared_keywords=2,
+            use_chunk_edges=True,
+            use_sequential_edges=True,
+            max_graph_seed_chunks=5,
+            max_edge_neighbors_per_chunk=5,
+
+            use_rerank=True,
+            use_cross_encoder_rerank=False,
+        )
+    ),
+
+    (
+        "I2_best_graph_cross_encoder_rerank",
+        make_cfg(
+            embed_model=BEST_EMBED,
+            chunk_size=BEST_CHUNK_SIZE,
+            chunk_overlap=BEST_OVERLAP,
+            chunk_strategy=BEST_STRATEGY,
+
+            top_k_retrieve=BEST_TOP_K_RETRIEVE,
+            top_k_final=BEST_TOP_K_FINAL,
+
+            retrieval_mode=BEST_RETRIEVAL_MODE,
+            bm25_k=BEST_BM25_K,
+            hybrid_mode=BEST_HYBRID_MODE,
+            rrf_k=BEST_RRF_K,
+
+            use_graph=True,
+            graph_edge_mode="keyword",
+            graph_hops=1,
+            edge_min_shared_keywords=2,
+            use_chunk_edges=True,
+            use_sequential_edges=True,
+            max_graph_seed_chunks=5,
+            max_edge_neighbors_per_chunk=5,
+
+            use_rerank=False,
+            use_cross_encoder_rerank=True,
+            cross_encoder_model="BAAI/bge-reranker-base",
+            rerank_top_n=50,
+        )
+    ),
+]
